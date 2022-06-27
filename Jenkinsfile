@@ -2,13 +2,6 @@ pipeline {
   agent {
     label 'TestingNode'
   }
-  environment {
-		DOCKERHUB_CREDENTIALS=credentials('DockerHub')
-	}
-
-    options {
-    skipDefaultCheckout()
-  }
   stages {
     stage('SCM checkout') {
       steps {
@@ -23,6 +16,7 @@ pipeline {
               sudo docker images'''
       }
     }
+
     stage('Push Image') {
       steps {
         sh '''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR  --password-stdin
@@ -30,11 +24,23 @@ pipeline {
       }
     }
 
+    stage('Build Production') {
+      steps {
+        build 'ProductionBuild'
+      }
+    }
+
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('DockerHub')
   }
   post {
-             success {
-                          build 'ProductionBuild'
-                     }
-      }
-     
+    success {
+      build 'ProductionBuild'
+    }
+
+  }
+  options {
+    skipDefaultCheckout()
+  }
 }
