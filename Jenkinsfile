@@ -1,6 +1,12 @@
-pipeline {
-  agent {
+pipeline 
+{
+  agent 
+  {
     label 'TestingNode'
+  }
+    options 
+  {
+    skipDefaultCheckout()
   }
   stages {
     stage('SCM checkout') {
@@ -9,9 +15,5 @@ pipeline {
         sh 'ls -lrt'
       }
     }
-
-  }
-  options {
-    skipDefaultCheckout()
   }
 }
