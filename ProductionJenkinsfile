@@ -1,0 +1,23 @@
+pipeline {
+  agent {
+    label 'ProductionNode'
+  }
+  environment {
+		DOCKERHUB_CREDENTIALS=credentials('DockerHub')
+	}
+
+    options {
+    skipDefaultCheckout()
+  }
+  stages {
+    stage('Pull Docker Image') {
+	   steps {
+        sh '''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR  --password-stdin
+	      docker pull manjunathba/custom_webapp_image'''
+      }
+      
+    }
+
+  }
+
+}
