@@ -12,7 +12,7 @@ pipeline {
 
     stage('Deploy Image') {
       steps {
-        sh '''sudo docker build . -t custom_webapp_image
+        sh '''sudo docker build . -t Manjunathba/custom_webapp_image
 sudo docker images'''
       }
     }
