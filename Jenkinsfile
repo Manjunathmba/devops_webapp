@@ -1,9 +1,6 @@
 pipeline 
 {
-  agent 
-  {
-    label 'TestingNode'
-  }
+  agent any
     options 
   {
     skipDefaultCheckout()
