@@ -1,4 +1,11 @@
 pipeline {
+ environment {
+    DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+  }
+  
+  options {
+    skipDefaultCheckout()
+  }
   agent {
     label 'TestingNode'
   }
@@ -29,18 +36,5 @@ pipeline {
         build 'ProductionBuild'
       }
     }
-
-  }
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('DockerHub')
-  }
-  post {
-    success {
-      build 'ProductionBuild'
-    }
-
-  }
-  options {
-    skipDefaultCheckout()
   }
 }
