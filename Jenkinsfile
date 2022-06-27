@@ -1,5 +1,5 @@
 pipeline {
-  agent {label 'Test'}
+  agent {label 'TestingNode'}
   options { skipDefaultCheckout() }
   stages {
     stage('test') {
