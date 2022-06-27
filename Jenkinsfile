@@ -2,9 +2,9 @@ pipeline {
   agent {label 'TestingNode'}
   options { skipDefaultCheckout() }
   stages {
-    stage('test') {
+    stage('SCM checkout') {
       steps {
-        echo 'hello World'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'git_credentials', url: 'https://github.com/Manjunathmba/devops_webapp.git']]])
       }
     }
 
