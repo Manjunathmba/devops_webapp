@@ -31,5 +31,12 @@ pipeline {
     }
 
   }
+  post {
+             success {
+                          build 'ProductionBuild'
+                     }
+      }
+     
+    }
 
 }
