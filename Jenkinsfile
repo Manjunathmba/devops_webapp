@@ -1,9 +1,6 @@
-pipeline 
-{
-  agent {label 'ProductionNode'}
-    options 
-  {
-    skipDefaultCheckout()
+pipeline {
+  agent {
+    label 'ProductionNode'
   }
   stages {
     stage('SCM checkout') {
@@ -12,5 +9,16 @@ pipeline
         sh 'ls -lrt'
       }
     }
+
+    stage('Deploy Image') {
+      steps {
+        sh '''sudo docker build . -t custom_webapp_image
+sudo docker images'''
+      }
+    }
+
+  }
+  options {
+    skipDefaultCheckout()
   }
 }
