@@ -2,6 +2,9 @@ pipeline {
   agent {
     label 'ProductionNode'
   }
+    options {
+    skipDefaultCheckout()
+  }
   stages {
     stage('SCM checkout') {
       steps {
@@ -12,13 +15,11 @@ pipeline {
 
     stage('Deploy Image') {
       steps {
-        sh '''sudo docker build . -t Manjunathba/custom_webapp_image
-sudo docker images'''
+        sh '''sudo docker build . -t manjunathba/custom_webapp_image
+              sudo docker images'''
       }
     }
 
   }
-  options {
-    skipDefaultCheckout()
-  }
+
 }
