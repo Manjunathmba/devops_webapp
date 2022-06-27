@@ -2,6 +2,10 @@ pipeline {
   agent {
     label 'ProductionNode'
   }
+  environment {
+		DOCKERHUB_CREDENTIALS=credentials('DockerHub')
+	}
+
     options {
     skipDefaultCheckout()
   }
@@ -17,6 +21,11 @@ pipeline {
       steps {
         sh '''sudo docker build . -t manjunathba/custom_webapp_image
               sudo docker images'''
+      }
+    }
+    stage('Push Image') {
+      steps {
+        sh '''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR  --password-stdin'''
       }
     }
 
