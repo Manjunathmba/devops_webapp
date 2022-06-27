@@ -17,7 +17,7 @@ pipeline {
       }
     }
 
-    stage('Deploy Image') {
+    stage('Generate Image') {
       steps {
         sh '''sudo docker build . -t manjunathba/custom_webapp_image
               sudo docker images'''
@@ -25,7 +25,8 @@ pipeline {
     }
     stage('Push Image') {
       steps {
-        sh '''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR  --password-stdin'''
+        sh '''echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR  --password-stdin
+	      docker push manjunathba/custom_webapp_image'''
       }
     }
 
