@@ -21,7 +21,8 @@ pipeline {
     {
       steps
       {
-        sh ''' docker run -itd --name webapp_container -p 86:80 manjunathba/custom_webapp_image'''
+        sh ''' docker rm -f $(docker ps -a -q)
+	      docker run -itd --name webapp_container -p 86:80 manjunathba/custom_webapp_image'''
       }
       
     }
