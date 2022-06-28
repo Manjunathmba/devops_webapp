@@ -33,7 +33,7 @@ pipeline {
 
     stage('Build Production') {
       steps {
-        build 'ProductionBuild'
+        build 'ProductionBuild', propagate: true, wait: true
       }
     }
   }
